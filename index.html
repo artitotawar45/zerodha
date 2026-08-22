@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Zerodha Clone | Trading Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            ZERODHA
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="login-subtitle">
+            Login to your trading account
+        </p>
+
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label>Username</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword()"
+                    >
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <p class="demo-login">
+            Demo: enter any username and password
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+
+<div id="app" class="app hidden">
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="navbar-left">
+
+        <div class="logo">
+            ZERODHA
+        </div>
+
+        <div class="market-status">
+            <span></span>
+            Market Open
+        </div>
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a
+            href="#dashboard"
+            class="active"
+        >
+            Dashboard
+        </a>
+
+        <a href="#watchlist">
+            Watchlist
+        </a>
+
+        <a href="#portfolio">
+            Portfolio
+        </a>
+
+        <a href="#orders">
+            Orders
+        </a>
+
+    </div>
+
+
+    <div class="navbar-right">
+
+        <button
+            class="theme-btn"
+            onclick="toggleTheme()"
+            title="Toggle theme"
+        >
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+
+        <div class="profile">
+
+            <div class="profile-avatar">
+                A
+            </div>
+
+            <span id="profileName">
+                Arti
+            </span>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MOBILE NAV
+===================================================== -->
+
+<div class="mobile-nav">
+
+    <a href="#dashboard">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="#watchlist">
+        <i class="fa-solid fa-list"></i>
+        <span>Watchlist</span>
+    </a>
+
+    <a href="#portfolio">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Portfolio</span>
+    </a>
+
+    <a href="#orders">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Orders</span>
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="container">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard">
+
+    <div class="welcome">
+
+        <div>
+
+            <p class="small-heading">
+                YOUR INVESTMENTS
+            </p>
+
+            <h1>
+                Welcome, <span id="welcomeName">Arti</span>
+            </h1>
+
+            <p>
+                Track your investments and manage your portfolio.
+            </p>
+
+        </div>
+
+
+        <div class="market-time">
+
+            <span class="live-dot"></span>
+
+            Market is open
+
+        </div>
+
+    </div>
+
+
+<!-- =====================================================
+     BALANCE CARDS
+===================================================== -->
+
+<div class="balance-grid">
+
+
+    <div class="balance-card">
+
+        <div class="card-header">
+
+            <span>
+                Available Margin
+            </span>
+
+            <i class="fa-solid fa-wallet"></i>
+
+        </div>
+
+        <h2 id="margin">
+            ₹1,24,500.00
+        </h2>
+
+        <p class="positive">
+            +₹2,450 today
+        </p>
+
+    </div>
+
+
+    <div class="balance-card">
+
+        <div class="card-header">
+
+            <span>
+                Invested
+            </span>
+
+            <i class="fa-solid fa-chart-line"></i>
+
+        </div>
+
+        <h2 id="invested">
+            ₹2,85,750.00
+        </h2>
+
+        <p>
+            Total investment
+        </p>
+
+    </div>
+
+
+    <div class="balance-card">
+
+        <div class="card-header">
+
+            <span>
+                Current Value
+            </span>
+
+            <i class="fa-solid fa-coins"></i>
+
+        </div>
+
+        <h2 id="currentValue">
+            ₹3,12,450.00
+        </h2>
+
+        <p
+            id="totalProfit"
+            class="positive"
+        >
+            +₹26,700
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     MARKET OVERVIEW
+===================================================== -->
+
+<div class="section-title">
+
+    <div>
+
+        <h2>
+            Market Overview
+        </h2>
+
+        <p>
+            Indian market indices
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="market-grid">
+
+
+    <div class="market-card">
+
+        <div>
+
+            <span>
+                NIFTY 50
+            </span>
+
+            <strong id="nifty">
+                23,892.65
+            </strong>
+
+        </div>
+
+        <span class="positive">
+            +0.74%
+        </span>
+
+    </div>
+
+
+    <div class="market-card">
+
+        <div>
+
+            <span>
+                SENSEX
+            </span>
+
+            <strong id="sensex">
+                78,956.32
+            </strong>
+
+        </div>
+
+        <span class="positive">
+            +0.61%
+        </span>
+
+    </div>
+
+
+    <div class="market-card">
+
+        <div>
+
+            <span>
+                BANK NIFTY
+            </span>
+
+            <strong id="banknifty">
+                52,348.40
+            </strong>
+
+        </div>
+
+        <span class="negative">
+            -0.32%
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     CHART
+===================================================== -->
+
+<section class="chart-section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Market Chart
+            </h2>
+
+            <p>
+                RELIANCE • NSE
+            </p>
+
+        </div>
+
+
+        <div class="chart-buttons">
+
+            <button
+                class="chart-period active"
+                onclick="changeChart('1D', this)"
+            >
+                1D
+            </button>
+
+            <button
+                class="chart-period"
+                onclick="changeChart('1W', this)"
+            >
+                1W
+            </button>
+
+            <button
+                class="chart-period"
+                onclick="changeChart('1M', this)"
+            >
+                1M
+            </button>
+
+            <button
+                class="chart-period"
+                onclick="changeChart('1Y', this)"
+            >
+                1Y
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="chart-container">
+
+        <div class="chart-top">
+
+            <div>
+
+                <span>
+                    RELIANCE
+                </span>
+
+                <strong id="chartPrice">
+                    ₹1,425.30
+                </strong>
+
+            </div>
+
+            <span class="positive">
+                +1.25%
+            </span>
+
+        </div>
+
+
+        <div class="canvas-wrapper">
+
+            <canvas id="stockChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WATCHLIST
+===================================================== -->
+
+<section id="watchlist">
+
+    <div class="section-title watchlist-header">
+
+        <div>
+
+            <h2>
+                My Watchlist
+            </h2>
+
+            <p>
+                Track your favorite stocks
+            </p>
+
+        </div>
+
+
+        <div class="watchlist-actions">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="stockSearch"
+                    placeholder="Search stocks..."
+                >
+
+            </div>
+
+
+            <button
+                class="add-stock"
+                onclick="addStock()"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Stock
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="watchlist"
+        id="watchlistContainer"
+    >
+
+        <!-- Stock rows generated by JavaScript -->
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PORTFOLIO
+===================================================== -->
+
+<section id="portfolio">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                My Portfolio
+            </h2>
+
+            <p>
+                Your current holdings
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="portfolio-card">
+
+        <div class="portfolio-summary">
+
+            <div>
+
+                <span>
+                    Total P&L
+                </span>
+
+                <strong
+                    id="portfolioProfit"
+                    class="positive"
+                >
+                    +₹26,700
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Returns
+                </span>
+
+                <strong
+                    id="portfolioReturn"
+                    class="positive"
+                >
+                    +9.35%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="portfolio-table">
+
+            <div class="table-header">
+
+                <span>Stock</span>
+                <span>Qty</span>
+                <span>Avg. Price</span>
+                <span>LTP</span>
+                <span>P&L</span>
+
+            </div>
+
+
+            <div
+                id="portfolioRows"
+            >
+
+                <!-- Generated by JavaScript -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ORDERS
+===================================================== -->
+
+<section id="orders">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Recent Orders
+            </h2>
+
+            <p>
+                Your latest transactions
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="orders"
+        id="ordersContainer"
+    >
+
+        <!-- Generated by JavaScript -->
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     TRADE MODAL
+===================================================== -->
+
+<div
+    id="tradeModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <p>
+                    Place Order
+                </p>
+
+                <h2 id="tradeTitle">
+                    Buy RELIANCE
+                </h2>
+
+            </div>
+
+
+            <button
+                class="close-btn"
+                onclick="closeTrade()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="trade-tabs">
+
+            <button
+                id="buyTab"
+                class="trade-tab buy-tab active"
+                onclick="setTradeType('BUY')"
+            >
+                BUY
+            </button>
+
+            <button
+                id="sellTab"
+                class="trade-tab sell-tab"
+                onclick="setTradeType('SELL')"
+            >
+                SELL
+            </button>
+
+        </div>
+
+
+        <div class="trade-stock">
+
+            <div>
+
+                <strong id="selectedStock">
+                    RELIANCE
+                </strong>
+
+                <span>
+                    NSE
+                </span>
+
+            </div>
+
+
+            <strong id="selectedPrice">
+                ₹1,425.30
+            </strong>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div>
+
+                <label>
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    value="1"
+                    min="1"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Order Type
+                </label>
+
+                <select id="orderType">
+
+                    <option>
+                        Market
+                    </option>
+
+                    <option>
+                        Limit
+                    </option>
+
+                    <option>
+                        Stop Loss
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <label>
+            Price
+        </label>
+
+        <input
+            type="number"
+            id="price"
+            value="1425.30"
+        >
+
+
+        <div class="order-total">
+
+            <span>
+                Estimated Total
+            </span>
+
+            <strong id="estimatedTotal">
+                ₹1,425.30
+            </strong>
+
+        </div>
+
+
+        <button
+            class="place-order"
+            onclick="placeOrder()"
+        >
+            Place Order
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage">
+        Order placed successfully
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        ZERODHA
+    </div>
+
+    <p>
+        A frontend trading dashboard created as a portfolio project.
+    </p>
+
+    <p>
+        Built with HTML, CSS & JavaScript
+    </p>
+
+</footer>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
